@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Attempt to open script 'res://scripts/council.gd' resulted in error 'File not found'.
+   at: load_source_code (modules/gdscript/gdscript.cpp:1139)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tests/council_test.gd:6)
+ERROR: Failed loading resource: res://scripts/council.gd.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tests/council_test.gd:6)
+ERROR: Council domain implementation required
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/council_test.gd:4)
+       [1] _initialize (res://tests/council_test.gd:7)

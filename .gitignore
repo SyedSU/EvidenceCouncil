@@ -1,0 +1,6 @@
+native/.godot/
+*.so
+*.dll
+*.dylib
+__pycache__/
+*.pyc

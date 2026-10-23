@@ -1,0 +1,49 @@
+COMMAND: python scripts/build_save_adapter.py
+EXIT: 0
+GENESIS_SAVE_COMPILER: cc (Debian 14.2.0-19) 14.2.0
+GENESIS_SAVE_ADAPTER_BUILT: genesis_save.so SHA256: 250c7d6d1dc8322b90036be40551c3dccf456393fcf0c5e348d356005ab6dd50
+
+COMMAND: /workspace/work/save-safety/engine/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path native --import
+EXIT: 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+COMMAND: /workspace/work/save-safety/engine/Godot_v4.7.2-stable_linux.x86_64 --headless --path native --script tests/council_test.gd
+EXIT: 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COUNCIL_FAILURES=0
+
+COMMAND: /workspace/work/save-safety/engine/Godot_v4.7.2-stable_linux.x86_64 --headless --path native --script tests/ui_test.gd
+EXIT: 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+UI_FAILURES=0
+
+COMMAND: python scripts/test_transport.py /workspace/work/save-safety/engine/Godot_v4.7.2-stable_linux.x86_64
+EXIT: 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRANSPORT_FAILURES=0
+ERROR: Parse JSON failed. Error at line 0: Expected key
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _complete (res://scripts/local_inference.gd:24)
+
+COMMAND: /workspace/work/save-safety/engine/Godot_v4.7.2-stable_linux.x86_64 --headless --path native --quit-after 3
+EXIT: 0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org

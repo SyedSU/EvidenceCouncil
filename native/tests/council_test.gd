@@ -1,0 +1,37 @@
+extends SceneTree
+var failures=0
+func check(ok:bool, message:String):
+ if not ok: failures+=1; push_error(message)
+func _initialize():
+ var script=load("res://scripts/council.gd")
+ check(script!=null,"Council domain implementation required")
+ if script==null: quit(1);return
+ var c=script.new()
+ check(not c.approve().is_empty(),"Empty assignment cannot be approved")
+ check(c.assign("Investigate urban trees").is_empty(),"Accept assignment")
+ for role in c.ROLES: check(c.contribute(role,"Evidence for "+role,"manual").is_empty(),"Editable contributions")
+ c.set_final("Final reviewed tree report")
+ check(not c.export_markdown("user://unapproved.md").is_empty(),"Export requires explicit approval")
+ check(c.approve().is_empty(),"Explicit final approval")
+ check(c.export_markdown("user://approved.md").is_empty(),"Approved export")
+ check(FileAccess.get_file_as_string("user://approved.md").contains("Final reviewed tree report"),"Export has approved contents")
+ c.contribute("reviewer","Correction","manual")
+ check(not c.data.approved,"Contribution edit invalidates approval")
+ var path="user://test-"+str(Time.get_ticks_usec())+".json"
+ check(c.save(path).is_empty(),"Native save")
+ var reopened=script.new()
+ check(reopened.open(path).is_empty(),"Reopen workspace")
+ check(reopened.data.assignment=="Investigate urban trees","Assignment persisted")
+ c.set_final("Newer result");check(c.save(path).is_empty(),"Second save")
+ reopened.set_final("Stale writer")
+ check(reopened.save(path).contains("another instance"),"Stale writer refuses overwrite")
+ var f=FileAccess.open(path,FileAccess.WRITE); f.store_string("broken");f.close()
+ var corrupt=script.new()
+ check(not corrupt.open(path).is_empty(),"Corruption reported")
+ check(FileAccess.get_file_as_string(path)=="broken","Corrupt original preserved")
+ check(not corrupt.save(path).is_empty(),"Corrupt load never silently overwritten")
+ check(not c.endpoint_valid("https://example.com"),"Cloud endpoint rejected")
+ check(not c.endpoint_valid("http://127.0.0.1.evil:8080"),"Hostname spoof rejected")
+ check(c.endpoint_valid("http://127.0.0.1:8080"),"Loopback accepted")
+ print("COUNCIL_FAILURES=",failures)
+ quit(1 if failures else 0)
