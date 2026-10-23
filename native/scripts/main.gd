@@ -15,6 +15,7 @@ var pending_action=""
 var dirty=false
 var syncing=false
 func _ready():
+ if "--package-smoke" in OS.get_cmdline_user_args():call_deferred("_package_review_smoke")
  get_tree().auto_accept_quit=false
  var theme=Theme.new();theme.default_font_size=18
  theme.set_color("font_color","Label",Color("f6efd9"));theme.set_color("font_color","Button",Color("f6efd9"))
@@ -116,3 +117,7 @@ func _notification(what):
  if what==NOTIFICATION_WM_CLOSE_REQUEST:
   if dirty:report("Unsaved changes. Save successfully before closing.")
   else:inference.cancel();get_tree().quit()
+
+func _package_review_smoke():
+ var smoke=preload("res://package_smoke.gd").new()
+ await smoke.run(get_tree())
