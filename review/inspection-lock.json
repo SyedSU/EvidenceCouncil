@@ -1,0 +1,32 @@
+{
+  "repository": "SyedSU/EvidenceCouncil",
+  "product": "EvidenceCouncil",
+  "sourceCommit": "925eda3861747a4585450a0bd3654acf93c4ea93",
+  "runId": 39922787148,
+  "release": {
+    "id": 421592725,
+    "tag": "review-evidencecouncil-925eda3861747a4585450a0bd3654acf93c4ea93-39922787148-1"
+  },
+  "assets": [
+    {
+      "name": "EvidenceCouncil-Windows-x64-review.zip",
+      "size": 37998360,
+      "sha256": "sha256:3c40804eb941a308ac4dfe21a547579879d1d9ad7752708554e0cee85eca5409"
+    },
+    {
+      "name": "package-report.json",
+      "size": 1497,
+      "sha256": "sha256:63c9e8a07b7424f2ff8b8db7973f2e08b239054ad8b4c042fc8c883b11a4251c"
+    },
+    {
+      "name": "review-build.json",
+      "size": 1023,
+      "sha256": "sha256:e5de34c49bd7496b8e639729ff81948e5de8142f3fe654d150b5cbc239c3361e"
+    },
+    {
+      "name": "windows-smoke.log",
+      "size": 109,
+      "sha256": "sha256:46c7cc5e3b97a423a83d3d7f67287db86cdad4c41ff2ec27bf5a22047c484834"
+    }
+  ]
+}
