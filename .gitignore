@@ -4,3 +4,5 @@ native/.godot/
 *.dylib
 __pycache__/
 *.pyc
+
+/build/
