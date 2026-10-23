@@ -43,11 +43,12 @@ func save(path:String)->String:
  return error
 func export_markdown(path:String)->String:
  if not data.approved or data.approved_text!=data.final:return "Approve the current final result before export."
- var file=FileAccess.open(path,FileAccess.WRITE)
- if file==null:return "Cannot write export. Check permissions and free space."
+ if path.get_extension().to_lower()!="md":return "Choose a new Markdown (.md) export file."
+ var absolute=ProjectSettings.globalize_path(path).simplify_path()
+ var active=ProjectSettings.globalize_path(current_path).simplify_path() if not current_path.is_empty() else ""
+ if not active.is_empty() and (absolute==active or absolute.begins_with(active+".")):return "Export cannot replace managed workspace files."
  var output="# EvidenceCouncil — approved result\n\nAssignment: "+data.assignment+"\n\n"+data.approved_text+"\n\n---\nApproved explicitly by the workspace owner. AI contributions are untrusted drafts.\n"
- var stored=file.store_buffer(output.to_utf8_buffer());file.flush();var status=file.get_error();file.close()
- return "" if stored and status==OK else "Export write failed."
+ return preload("res://scripts/safe_export.gd").write_new(path,output.to_utf8_buffer(),files)
 func endpoint_valid(endpoint:String)->bool:
  var regex=RegEx.new();regex.compile("^http://(127\\.0\\.0\\.1|localhost|\\[::1\\]):([0-9]{1,5})$")
  var match=regex.search(endpoint)

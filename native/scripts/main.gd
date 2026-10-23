@@ -57,7 +57,7 @@ func _ready():
   label(content,"Editable "+role+" contribution")
   var text=editor(content,24000,190);editors[role]=text
   text.text_changed.connect(func():
-   if not syncing:council.contribute(role,text.text,"manual");dirty=true;approval_status())
+   if not syncing:inference.cancel();council.contribute(role,text.text,"manual");dirty=true;approval_status())
  label(box,"Final result — assemble and edit the result you want to approve")
  final_edit=editor(box,48000,210)
  final_edit.text_changed.connect(func():

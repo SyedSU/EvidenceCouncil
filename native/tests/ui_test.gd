@@ -19,6 +19,11 @@ func run():
  check(ui.status.text.length()>0 and ui.council.blocked,"UI reports failed open and blocks overwrite")
  ui._new_workspace()
  check(not ui.council.blocked and ui.council.data.assignment.is_empty(),"New workspace recovers from failed open")
+ ui.inference.role="writer"
+ ui.editors.writer.text="New manual draft while generation is pending";ui.editors.writer.text_changed.emit()
+ check(ui.inference.role.is_empty(),"Manual context edits cancel pending generation")
+ ui.inference._complete(HTTPRequest.RESULT_SUCCESS,200,PackedStringArray(),JSON.stringify({"choices":[{"message":{"content":"STALE synthetic result"}}]}).to_utf8_buffer())
+ check(ui.council.data.contributions.writer.text=="New manual draft while generation is pending","Late completion preserves newer manual draft")
  ui.assignment.text="Manual demonstration — compare an urban tree proposal";ui.assignment.text_changed.emit()
  for role in ui.council.ROLES:
   ui.editors[role].text="MANUAL DEMONSTRATION: "+role+" contribution; no AI model used."

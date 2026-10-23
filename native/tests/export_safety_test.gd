@@ -1,0 +1,16 @@
+extends SceneTree
+func _init():
+ var c=load("res://scripts/council.gd").new()
+ c.assign("Review evidence");c.set_final("Approved result");c.approve()
+ var path="user://protected.json";assert(c.save(path).is_empty())
+ var before=FileAccess.get_file_as_string(path)
+ assert(not c.export_markdown(path).is_empty(),"Export must preserve active workspace")
+ assert(FileAccess.get_file_as_string(path)==before)
+ c.set_final("New generation");c.approve();assert(c.save(path).is_empty())
+ var backup=FileAccess.get_file_as_string(path+".backup")
+ assert(not c.export_markdown(path+".backup").is_empty())
+ assert(FileAccess.get_file_as_string(path+".backup")==backup)
+ var existing="user://existing.md";var file=FileAccess.open(existing,FileAccess.WRITE);file.store_string("original export");file.close()
+ assert(not c.export_markdown(existing).is_empty())
+ assert(FileAccess.get_file_as_string(existing)=="original export")
+ print("COUNCIL EXPORT SAFETY PASS");quit()

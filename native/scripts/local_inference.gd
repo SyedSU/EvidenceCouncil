@@ -19,6 +19,7 @@ func cancel():
  if role.is_empty():return
  request.cancel_request();var canceled=role;role="";finished.emit(canceled,"","Canceled. No contribution was accepted.")
 func _complete(result:int,code:int,_headers:PackedStringArray,body:PackedByteArray):
+ if role.is_empty():return
  var selected=role;role=""
  if result!=HTTPRequest.RESULT_SUCCESS or code!=200:finished.emit(selected,"","Local inference failed (HTTP "+str(code)+"). Check your local server/model. No substitute generated.");return
  var response=JSON.parse_string(body.get_string_from_utf8())
